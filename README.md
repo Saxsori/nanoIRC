@@ -1,1 +1,1 @@
-# miniIRCServer
+# mini IRC Server
