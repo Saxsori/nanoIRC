@@ -6,7 +6,7 @@
 /*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:11:15 by aaljaber          #+#    #+#             */
-/*   Updated: 2022/12/31 22:34:29 by aaljaber         ###   ########.fr       */
+/*   Updated: 2022/12/31 23:10:32 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,24 @@ void close_server(int sig)
 
 int main()  
 {
-	Server	server;
 
+
+	std::cout << BCYN << "  _   _                  ___________  _____ " << std::endl;
+	std::cout << " | \\ | |                |_   _| ___ \\/  __ \\ " << std::endl;
+	std::cout << " |  \\| | __ _ _ __   ___  | | | |_/ /| /  \\/ " << std::endl;
+	std::cout << " | . ` |/ _` | '_ \\ / _ \\ | | |    / | |    " << std::endl;
+	std::cout << " | |\\  | (_| | | | | (_) || |_| |\\ \\ | \\__/\\" << std::endl;
+	std::cout << " \\_| \\_/\\__,_|_| |_|\\___/\\___/\\_| \\_| \\____/" << std::endl;                                 
+	std::cout <<BYEL<< "       _   _" << std::endl;
+	std::cout << "      (q\\_/p)" << std::endl;
+	std::cout << "       /. .\\" << std::endl;
+	std::cout << "      =\\_t_/=   __" << std::endl;
+	std::cout << "       /   \\   (" << std::endl;
+	std::cout << "      ((   ))   )" << std::endl;
+	std::cout << "      /\\) (/\\  /" << std::endl;
+	std::cout << "      \\  Y  /-'" << std::endl;
+	std::cout << "       nn^nn" << DEFCOLO << std::endl;
+	Server	server;
 	if (!server.creatSocket())
 		return (1);
 	if (!server.bindSocket())

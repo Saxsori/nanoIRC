@@ -6,7 +6,7 @@
 /*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:10:46 by aaljaber          #+#    #+#             */
-/*   Updated: 2022/12/31 22:33:07 by aaljaber         ###   ########.fr       */
+/*   Updated: 2022/12/31 23:20:13 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	Server::connectClients()
 
 		// ? add the connected socket to the client list
 		this->_clientSocket.push_back(this->_newSocket);
+		this->_msgStorage.push_back("");
 		std::cout << "Adding to list of sockets as " << this->_clientSocket.size() - 1 << std::endl;
 	}
 	return (1);
@@ -131,20 +132,26 @@ void	Server::getClientMsg()
 				std::cout << BCYN << "🛑 Disconnection: socket fd is " << *(this->_clientSocket.begin()+i) << ", ip address is " << inet_ntoa(this->_address.sin_addr) << ", port is" << ntohs(this->_address.sin_port) << std::endl;
 				close(*(this->_clientSocket.begin()+i));
 				this->_clientSocket.erase(this->_clientSocket.begin() + i);
+				this->_msgStorage.erase(this->_msgStorage.begin() + i);
 				if (this->_clientSocket.empty())
 					break ;
 			}
 			else
 			{
 				this->_msgBuffer[this->_readbyte] = '\0';
-				
-				// ? print the message received
-				std::cout << BBLU << std::endl << "📥 Received: " << this->_msgBuffer << DEFCOLO << std::endl;
-				
-				// ? send message to the client 
-				std::string msg ("Server received this message: ");
-				msg += this->_msgBuffer;
-				send(*(this->_clientSocket.begin()+i), msg.c_str(), msg.length(), 0);
+				if (strchr(_msgBuffer, '\n'))
+				{
+					_msgStorage[i] += _msgBuffer;
+					// ? print the message received
+					std::cout << BBLU << std::endl << "📥 Received: " << this->_msgStorage[i] << DEFCOLO << std::endl;
+					
+					// ? send message to the client 
+					std::string msg ("Server received this message: ");
+					msg += this->_msgBuffer;
+					send(*(this->_clientSocket.begin()+i), msg.c_str(), msg.length(), 0);					
+				}
+				else
+					_msgStorage[i] += _msgBuffer;
 			}
 		}
 	}

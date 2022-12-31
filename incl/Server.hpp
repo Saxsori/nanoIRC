@@ -6,7 +6,7 @@
 /*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:09:31 by aaljaber          #+#    #+#             */
-/*   Updated: 2022/12/31 22:34:48 by aaljaber         ###   ########.fr       */
+/*   Updated: 2022/12/31 23:15:28 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,18 @@
 class Server
 {
 	private:
-		int					_masterSocket;
-        int 				_opt;
-   		struct sockaddr_in	_address;
-		int					_addrlen;
-		fd_set				_readfds; // fds set
-    	int					_maxSocketfd; // will be used to define the range of the fds
-		std::vector <int>	_clientSocket;
-		int					_totalBitSet;
-		int					_newSocket;
-		int					_readbyte;
-		char				_msgBuffer[1025];
+		int							_masterSocket;
+        int 						_opt;
+   		struct sockaddr_in			_address;
+		int							_addrlen;
+		fd_set						_readfds; // fds set
+    	int							_maxSocketfd; // will be used to define the range of the fds
+		std::vector <int>			_clientSocket;
+		std::vector <std::string>	_msgStorage;
+		int							_totalBitSet;
+		int							_newSocket;
+		int							_readbyte;
+		char						_msgBuffer[1025];
 	public:
 		Server();
 		~Server();
