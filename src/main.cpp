@@ -6,7 +6,7 @@
 /*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:11:15 by aaljaber          #+#    #+#             */
-/*   Updated: 2022/12/31 22:21:18 by aaljaber         ###   ########.fr       */
+/*   Updated: 2022/12/31 22:34:29 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	TERMFLAG = 0;
 void close_server(int sig)
 {
 	(void)sig;
-	std::cout << BYEL << "The server is terminated" << DEFCOLO << std::endl;
+	std::cout << BYEL << " The ctrl-c was hit" << DEFCOLO << std::endl;
 	TERMFLAG = 1;
 }
 
@@ -35,8 +35,16 @@ int main()
 	{
 		signal(SIGINT, close_server);
 		server.resetClients();
-		if (!server.connectClients())
-			return (1);
+		try
+		{
+			if (!server.connectClients())
+				return (1);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << DEFCOLO << '\n';
+			break ;
+		}
 		if (TERMFLAG == 1)
 			break ;
 		server.getClientMsg();

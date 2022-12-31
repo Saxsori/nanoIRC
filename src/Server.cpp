@@ -6,7 +6,7 @@
 /*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:10:46 by aaljaber          #+#    #+#             */
-/*   Updated: 2022/12/31 22:20:14 by aaljaber         ###   ########.fr       */
+/*   Updated: 2022/12/31 22:33:07 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	Server::connectClients()
 	
 	// ? if select function was interrupted by the signal SIGINT (ctrl-c), it will return -1 and errno will be set to EINTR
 	if (this->_totalBitSet == -1 && errno == EINTR)
-		exit(0);
+		throw TerminateServer();
 
 	// ? if the fd is still in the set
 	if (FD_ISSET(this->_masterSocket, &this->_readfds))

@@ -6,7 +6,7 @@
 /*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:09:31 by aaljaber          #+#    #+#             */
-/*   Updated: 2022/12/31 21:37:37 by aaljaber         ###   ########.fr       */
+/*   Updated: 2022/12/31 22:34:48 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include <algorithm>
 #include <vector>
 #include <signal.h>
-#define PORT 8896
+#define PORT 8822
 #define	MAXCLNT 10
 #define	WLCMSG "Welcome to ft_irc_server \r\n"
 # define BBLK "\e[1;30m"
@@ -58,6 +58,15 @@ class Server
 		void	resetClients();
 		int		connectClients();
 		void	getClientMsg();
+};
+
+class TerminateServer : public std::exception
+{
+	public:
+		const char* what() const throw()
+		{
+			return (BYEL"The server is terminated!");
+		}
 };
 
 #endif
