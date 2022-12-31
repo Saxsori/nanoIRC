@@ -1,1 +1,1 @@
-# mini IRC Server
+# Nano IRC Server
