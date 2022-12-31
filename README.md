@@ -2,7 +2,7 @@
 
 Internet Relay Chat (IRC) is Internet servers that use a specific protocol through which individuals can hold real-time online conversations. This was my own implementation of the server before applying the IRC protocols. This server has been created to understand the socket programming and to study the select functionn behavior. It was the very beginning step on our own [IRC server](https://github.com/i99dev/ft_irc).
 
-Nono server is only capable to send and receive messages from muiltiple clients at the same time.
+Nono server is only capable to send and receive messages from muiltiple clients at the same time, and can manage receiving partial data from each one of them without interruption 🐁.
 
 Each and every step was explained breifly in the comments on the top of each line, [chcek them out](https://github.com/Saxsori/nanoIRC/blob/main/src/Server.cpp).
 
