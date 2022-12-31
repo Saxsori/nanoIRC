@@ -6,7 +6,7 @@
 /*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:10:46 by aaljaber          #+#    #+#             */
-/*   Updated: 2022/12/31 23:20:13 by aaljaber         ###   ########.fr       */
+/*   Updated: 2022/12/31 23:26:55 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ void	Server::getClientMsg()
 			}
 			else
 			{
+				// ? when the client receive partial data it doesn't end with new line
+				// ? the _msgStorage used to save each data and join them till it get completed
 				this->_msgBuffer[this->_readbyte] = '\0';
 				if (strchr(_msgBuffer, '\n'))
 				{
