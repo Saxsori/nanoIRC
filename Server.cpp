@@ -6,7 +6,7 @@
 /*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:10:46 by aaljaber          #+#    #+#             */
-/*   Updated: 2022/12/31 21:36:54 by aaljaber         ###   ########.fr       */
+/*   Updated: 2022/12/31 21:41:18 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	Server::getClientMsg()
 			{
 				// ? print the message received
 				this->_msgBuffer[this->_readbyte] = '\0';
-				std::cout << BBLU << "📥 Received: " << this->_msgBuffer << DEFCOLO << std::endl;
+				std::cout << BBLU << std::endl << "📥 Received: " << this->_msgBuffer << DEFCOLO << std::endl;
 				std::string msg ("Server received this message: ");
 				msg += this->_msgBuffer;
 				// ? send message to the client 
