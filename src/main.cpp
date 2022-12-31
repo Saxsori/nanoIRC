@@ -6,11 +6,11 @@
 /*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:11:15 by aaljaber          #+#    #+#             */
-/*   Updated: 2022/12/31 21:36:26 by aaljaber         ###   ########.fr       */
+/*   Updated: 2022/12/31 22:21:18 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Server.hpp"
+#include "../incl/Server.hpp"
 
 int	TERMFLAG = 0;
 
@@ -24,11 +24,13 @@ void close_server(int sig)
 int main()  
 {
 	Server	server;
+
 	if (!server.creatSocket())
 		return (1);
 	if (!server.bindSocket())
 		return (1);
 	std::cout << "Waiting for connections ..." << std::endl;
+
 	while (true)
 	{
 		signal(SIGINT, close_server);

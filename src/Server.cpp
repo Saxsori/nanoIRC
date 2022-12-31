@@ -6,7 +6,7 @@
 /*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:10:46 by aaljaber          #+#    #+#             */
-/*   Updated: 2022/12/31 21:44:32 by aaljaber         ###   ########.fr       */
+/*   Updated: 2022/12/31 22:20:14 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	Server::bindSocket()
 		return (0);
 	}
 	std::cout << BCYN << "Listener on port " << PORT << DEFCOLO << std::endl;
+	
 	/*
 	? make server waits for the client connect
 	? define the length of queue of pending connection for the server
@@ -67,11 +68,14 @@ void	Server::resetClients()
 {
 	// ? clear the fds from the set, used to initialize the fds set
 	FD_ZERO(&this->_readfds);
+	
 	// ? adding server socket to the set
 	FD_SET(this->_masterSocket, &this->_readfds);
+	
 	// ? adding client's socket fds to the set
 	for (std::vector<int>::iterator it = this->_clientSocket.begin(); it != this->_clientSocket.end(); it++)
 		FD_SET(*it, &this->_readfds);
+	
 	// ? geting the max fd
 	if (!this->_clientSocket.empty())
 		this->_maxSocketfd = *max_element(this->_clientSocket.begin(), this->_clientSocket.end());
@@ -84,8 +88,11 @@ int	Server::connectClients()
 	// ? indicate which of the specified fds is ready to reading
 	if (((this->_totalBitSet = select(this->_maxSocketfd + 1, &this->_readfds, NULL, NULL, NULL)) < 0) && (errno != EINTR))
 		std::cout << BRED << "Select: " << strerror(errno) << DEFCOLO << std::endl;
+	
+	// ? if select function was interrupted by the signal SIGINT (ctrl-c), it will return -1 and errno will be set to EINTR
 	if (this->_totalBitSet == -1 && errno == EINTR)
 		exit(0);
+
 	// ? if the fd is still in the set
 	if (FD_ISSET(this->_masterSocket, &this->_readfds))
 	{
@@ -97,11 +104,12 @@ int	Server::connectClients()
 			return (0);
 		}
 		std::cout << BCYN << "💬 New connection: socket fd is " << this->_newSocket << ", ip address is " << inet_ntoa(this->_address.sin_addr) << ", port is" << ntohs(this->_address.sin_port) << std::endl;
+		
 		// ? send a welcome message to the connected socket
 		if (send(this->_newSocket, WLCMSG, strlen(WLCMSG), 0) != strlen(WLCMSG))
 			std::cout << BRED << "Send: " << strerror(errno) << DEFCOLO << std::endl;
-
 		std::cout << BBLU << "📤 Welcome message sent successfully" << DEFCOLO << std::endl;
+
 		// ? add the connected socket to the client list
 		this->_clientSocket.push_back(this->_newSocket);
 		std::cout << "Adding to list of sockets as " << this->_clientSocket.size() - 1 << std::endl;
@@ -128,12 +136,14 @@ void	Server::getClientMsg()
 			}
 			else
 			{
-				// ? print the message received
 				this->_msgBuffer[this->_readbyte] = '\0';
+				
+				// ? print the message received
 				std::cout << BBLU << std::endl << "📥 Received: " << this->_msgBuffer << DEFCOLO << std::endl;
+				
+				// ? send message to the client 
 				std::string msg ("Server received this message: ");
 				msg += this->_msgBuffer;
-				// ? send message to the client 
 				send(*(this->_clientSocket.begin()+i), msg.c_str(), msg.length(), 0);
 			}
 		}
