@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: aaljaber <aaljaber@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:10:46 by aaljaber          #+#    #+#             */
-/*   Updated: 2022/12/31 23:26:55 by aaljaber         ###   ########.fr       */
+/*   Updated: 2023/01/01 04:14:25 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	Server::connectClients()
 			std::cout << BRED << "Accept: " << strerror(errno) << DEFCOLO << std::endl;
 			return (0);
 		}
-		std::cout << BCYN << "💬 New connection: socket fd is " << this->_newSocket << ", ip address is " << inet_ntoa(this->_address.sin_addr) << ", port is" << ntohs(this->_address.sin_port) << std::endl;
+		std::cout << BCYN << "💬 New connection: socket fd is " << this->_newSocket << ", ip address is " << inet_ntoa(this->_address.sin_addr) << ", port is " << ntohs(this->_address.sin_port) << std::endl;
 		
 		// ? send a welcome message to the connected socket
 		if (send(this->_newSocket, WLCMSG, strlen(WLCMSG), 0) != strlen(WLCMSG))
@@ -150,7 +150,8 @@ void	Server::getClientMsg()
 					// ? send message to the client 
 					std::string msg ("Server received this message: ");
 					msg += this->_msgBuffer;
-					send(*(this->_clientSocket.begin()+i), msg.c_str(), msg.length(), 0);					
+					send(*(this->_clientSocket.begin()+i), msg.c_str(), msg.length(), 0);
+					_msgStorage[i] = "";					
 				}
 				else
 					_msgStorage[i] += _msgBuffer;
