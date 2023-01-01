@@ -1,7 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/abrar/Desktop/42-Devcontainer/42-Devcontainer/src/Cursus/nanoIRC'
-c++ -Wall -Werror -Wextra -std=c++98 -g   -c -o src/main.o src/main.cpp
-c++ -Wall -Werror -Wextra -std=c++98 -g   -c -o src/Server.o src/Server.cpp
-c++ -Wall -Werror -Wextra -std=c++98 -g ./src/main.o ./src/Server.o -o nanoIRC
-make: Leaving directory `/Users/abrar/Desktop/42-Devcontainer/42-Devcontainer/src/Cursus/nanoIRC'
- 
