@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aaljaber <aaljaber@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: aaljaber <aaljaber@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 02:10:46 by aaljaber          #+#    #+#             */
-/*   Updated: 2023/01/01 04:14:25 by aaljaber         ###   ########.fr       */
+/*   Updated: 2023/01/01 09:57:26 by aaljaber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,13 @@ void	Server::getClientMsg()
 			// ? read the message recieved
 			if ((this->_readbyte = read(*(this->_clientSocket.begin()+i), this->_msgBuffer, 1024)) == 0)  
 			{
-				// ? assign the address if the peer connected to the socket(_clientSocket[i]) in the buffer pointed to by adress
-				getpeername(*(this->_clientSocket.begin()+i), (struct sockaddr*)&this->_address, (socklen_t*)&this->_addrlen);  
-				std::cout << BCYN << "🛑 Disconnection: socket fd is " << *(this->_clientSocket.begin()+i) << ", ip address is " << inet_ntoa(this->_address.sin_addr) << ", port is" << ntohs(this->_address.sin_port) << std::endl;
-				close(*(this->_clientSocket.begin()+i));
+				// ? if read returned 0, means user is disconnected, so here close the fd and erase client's info
+				
+				// ? to get the info of this fd, the port and the address
+				getpeername(*(this->_clientSocket.begin() + i), (struct sockaddr*)&this->_address, (socklen_t*)&this->_addrlen);  
+				std::cout << BCYN << "🛑 Disconnection: socket fd is " << *(this->_clientSocket.begin() + i) << ", ip address is " << inet_ntoa(this->_address.sin_addr) << ", port is" << ntohs(this->_address.sin_port) << std::endl;
+				
+				close(*(this->_clientSocket.begin() + i));
 				this->_clientSocket.erase(this->_clientSocket.begin() + i);
 				this->_msgStorage.erase(this->_msgStorage.begin() + i);
 				if (this->_clientSocket.empty())
