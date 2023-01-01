@@ -22,6 +22,13 @@ int select (int nfds, fd_set *readfds, fd_set *writefds, fd_set *errorfds, struc
 
 
 
+
+https://user-images.githubusercontent.com/92129820/210158193-4d4a18ce-0af7-4f42-bb98-54af4c8adc39.mov
+
+
+
+
+
 Resourses:
 - [Socket programming](https://www.geeksforgeeks.org/socket-programming-cc/)
 - [Handeling multiple clients on Server](https://www.geeksforgeeks.org/socket-programming-in-cc-handling-multiple-clients-on-server-without-multi-threading/?ref=lbp)
